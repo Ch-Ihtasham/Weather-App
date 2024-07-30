@@ -55,6 +55,14 @@
         }
 
     }
+    .location{
+        width: 60px;
+        height: 60px;
+        mix-blend-mode:color-burn;
+        cursor: pointer;
+        border-radius: 50%;
+        
+    }
 }
 
 .weather-icon {

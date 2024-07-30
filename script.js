@@ -1,28 +1,45 @@
 const apiKey = '5a5b9db67354136d5ab2c73981bb2ded';
 const searchBox = document.querySelector('.search input')
 const searchBtn = document.querySelector('.search button')
+const locationBtn = document.querySelector('.location')
 let city = 'faisalabad'
-const lat = '';
-const lon = '';
 let url;
 
+
 searchBtn.addEventListener('click', () => {
-    city = searchBox.value
+    city = searchBox.value.trim()
     fetchWeather()
 })
 
-// if (city) {
-//     url = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${city}&appid=${apiKey}`;
-// } else if (lat && lon) {
-//     url = `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${lon}&appid=${apiKey}`;
-// } else {
-//     throw new Error('Either city name or latitude and longitude must be provided.');
-// }
+locationBtn.addEventListener('click', () => {
+    function getLocation(callback) {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                position => callback(position.coords.latitude, position.coords.longitude),
+                error => console.error('Error getting location:', error)
+            );
+        } else {
+            console.error('Geolocation is not supported by this browser.');
+        }
+    }
 
-async function fetchWeather() {
+    getLocation((lat, lon) => {
+        // console.log('Latitude:', lat);
+        // console.log('Longitude:', lon);
+        fetchWeather(lat,lon)
+    });
 
-    url = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${city}&appid=${apiKey}`;
+})
 
+
+
+async function fetchWeather(lat, lon) {
+
+    if (lat && lon) {
+        url = `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${lon}&appid=${apiKey}`;
+    } else {
+        url = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${city}&appid=${apiKey}`;
+    }
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -34,7 +51,7 @@ async function fetchWeather() {
         console.error('Fetch error:', error);
     }
     document.querySelector('.city').innerHTML = data.name;
-    document.querySelector('.temp').innerHTML = data.main.temp + '°c';
+    document.querySelector('.temp').innerHTML = Math.round(data.main.temp) + '°c';
     document.querySelector('.humidity').innerHTML = data.main.humidity + '%';
     document.querySelector('.wind').innerHTML = data.wind.speed + 'Km/h';
 
