@@ -2,7 +2,7 @@ const apiKey = '5a5b9db67354136d5ab2c73981bb2ded';
 const searchBox = document.querySelector('.search input')
 const searchBtn = document.querySelector('.search button')
 const locationBtn = document.querySelector('.location')
-let city = 'faisalabad'
+let city;
 let url;
 
 
@@ -11,27 +11,31 @@ searchBtn.addEventListener('click', () => {
     fetchWeather()
 })
 
+
 locationBtn.addEventListener('click', () => {
-    function getLocation(callback) {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                position => callback(position.coords.latitude, position.coords.longitude),
-                error => console.error('Error getting location:', error)
-            );
-        } else {
-            console.error('Geolocation is not supported by this browser.');
-        }
-    }
+
 
     getLocation((lat, lon) => {
-        // console.log('Latitude:', lat);
-        // console.log('Longitude:', lon);
-        fetchWeather(lat,lon)
+        fetchWeather(lat, lon)
     });
+    searchBox.value=''
 
 })
 
 
+function getLocation(callback) {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            position => callback(position.coords.latitude, position.coords.longitude),
+            error => console.error('Error getting location:', error)
+        );
+    } else {
+        console.error('Geolocation is not supported by this browser.');
+    }
+}
+getLocation((lat, lon) => {
+    fetchWeather(lat, lon)
+});
 
 async function fetchWeather(lat, lon) {
 
