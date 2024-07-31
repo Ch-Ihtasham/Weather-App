@@ -6,6 +6,18 @@ let weatherIcon = document.querySelector('.weather-icon')
 let city;
 let url;
 
+// searchBox.keydown(function downkey() {
+//     city = searchBox.value.trim()
+//     fetchWeather()
+// })
+searchBox.addEventListener('keydown', (e) => {
+    if (e.key == "Enter") {
+        city = searchBox.value.trim()
+        fetchWeather()
+        // searchBox.value = ''
+    }
+})
+
 
 searchBtn.addEventListener('click', () => {
     city = searchBox.value.trim()
