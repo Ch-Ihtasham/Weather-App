@@ -82,6 +82,7 @@ async function fetchWeather(lat, lon) {
     } else if (data.weather[0].main == "Mist") {
         weatherIcon.src = "images/mist.png"
     }
+    
 
 
 }
