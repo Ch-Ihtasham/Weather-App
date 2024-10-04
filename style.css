@@ -6,13 +6,15 @@
 
 .card {
     width: 90%;
-    max-width: 500px;
-    background: linear-gradient(135deg, #00feba, #5b548a);
+    max-width: 900px;
+    /* background: linear-gradient(135deg, #00feba, #5b548a); */
+    background: linear-gradient(to right, #0e252e, #203a43, #2c5364);
     color: white;
     margin: 100px auto 0;
     border-radius: 20px;
     padding: 40px 35px;
     text-align: center;
+
 
 }
 
