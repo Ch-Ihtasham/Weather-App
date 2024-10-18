@@ -97,7 +97,7 @@ async function fetchWeather(lat, lon) {
             weatherIcon.src = "images/mist.png";
         }
         else {
-            weatherIcon.src = "images/default.png"; // Fallback for other conditions
+            weatherIcon.src = "images/mist.png"; // Fallback for other conditions
         }
 
     } catch (error) {
